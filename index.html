@@ -198,8 +198,9 @@
         padding: 0.5rem 0;
         border-bottom: 1px solid #e5e7eb;
         display: flex;
-        align-items: center;
-        gap: 0.75rem;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 0.5rem;
       }
 
       .legal-box ul li:last-child {
@@ -285,38 +286,18 @@
     <div class="intro-box">
       <h2>Una plataforma, todo el control</h2>
       <p>
-        Planfit es una solución SaaS que te permite gestionar clientes,
-        entrenamientos, reservas y accesos desde un solo lugar. Diseñada para
-        gimnasios que quieren crecer.
+        Planfit es una solución SaaS integral que ofrece una
+        <strong>APP</strong> para clientes o socios del club +
+        <strong>Panel de Admin</strong>
+        para staff.
+      </p>
+      <br />
+      <p>
+        Diseñada para gimnasios que quieren crecer y
+        <strong>digitalizarse</strong>
       </p>
       <a href="#demo" class="btn">Solicitar demo</a>
     </div>
-
-    <section>
-      <h2>Beneficios de usar Planfit</h2>
-      <div class="grid-cards">
-        <div class="card">
-          <h3>⏱ Ahorra tiempo</h3>
-          <p>Automatiza procesos y reduce tareas administrativas diarias.</p>
-        </div>
-        <div class="card">
-          <h3>📈 Mejora la retención</h3>
-          <p>
-            Ofrece a tus clientes una experiencia personalizada y profesional.
-          </p>
-        </div>
-        <div class="card">
-          <h3>📊 Control total</h3>
-          <p>
-            Visualiza métricas clave del negocio desde cualquier dispositivo.
-          </p>
-        </div>
-        <div class="card">
-          <h3>🔒 Seguridad garantizada</h3>
-          <p>Gestión de datos bajo estándares modernos de seguridad.</p>
-        </div>
-      </div>
-    </section>
 
     <section>
       <h2>Funcionalidades principales</h2>
@@ -327,15 +308,25 @@
             <i class="fas fa-dumbbell"></i> Gestión de entrenamientos
           </div>
           <div class="feature">
+            <i class="fas fa-list-ul"></i> Listado de ejercicios completo
+          </div>
+          <div class="feature">
+            <i class="fas fa-video"></i> Vídeo demo e instrucciones de
+            ejercicios
+          </div>
+          <div class="feature">
+            <i class="fas fa-bolt"></i> Generador de rutinas
+          </div>
+          <div class="feature">
             <i class="fas fa-calendar-check"></i> Planificación en calendario
           </div>
           <div class="feature">
             <i class="fas fa-chart-line"></i> Estadísticas de progreso
           </div>
+          <div class="feature"><i class="fas fa-robot"></i> Chatbot con IA</div>
           <div class="feature">
             <i class="fas fa-user"></i> Perfil de usuario
           </div>
-          <div class="feature"><i class="fas fa-robot"></i> Chatbot con IA</div>
         </div>
         <div class="card">
           <h3>Panel de administración</h3>
@@ -343,15 +334,64 @@
             <i class="fas fa-users-cog"></i> Gestión completa de usuarios
           </div>
           <div class="feature">
-            <i class="fas fa-database"></i> Visualización de métricas
+            <i class="fas fa-database"></i> Base de datos de usuarios
           </div>
           <div class="feature">
-            <i class="fas fa-user-tie"></i> Asignación a entrenadores
+            <i class="fas fa-user-tie"></i> Asignación a entrenadores usuarios
           </div>
           <div class="feature">
             <i class="fas fa-desktop"></i> Control centralizado desde el
             navegador
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Beneficios de usar Planfit</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>📲 Digitalización total</h3>
+          <p>
+            Una solución integral que conecta a clientes y entrenadores a través
+            de una app multiplataforma y un panel administrativo web.
+          </p>
+        </div>
+        <div class="card">
+          <h3>⚙️ Gestión inteligente de entrenamientos</h3>
+          <p>
+            Desde el panel se crean rutinas y planes personalizados que el
+            cliente puede seguir desde su app con vídeos e instrucciones
+            detalladas.
+          </p>
+        </div>
+        <div class="card">
+          <h3>🗓 Planificación y seguimiento</h3>
+          <p>
+            El calendario integrado permite organizar entrenamientos y
+            visualizar el progreso, facilitando la constancia y el control.
+          </p>
+        </div>
+        <div class="card">
+          <h3>🤖 Asistencia automatizada con IA</h3>
+          <p>
+            Un chatbot inteligente que ofrece ayuda contextual al usuario en
+            todo momento, resolviendo dudas y motivando.
+          </p>
+        </div>
+        <div class="card">
+          <h3>📊 Control completo para el staff</h3>
+          <p>
+            Trazabilidad por usuario y herramientas para que los entrenadores
+            gestionen sus clientes de forma efectiva.
+          </p>
+        </div>
+        <div class="card">
+          <h3>🔐 Seguridad y escalabilidad</h3>
+          <p>
+            Infraestructura segura con capacidad de crecer según el volumen de
+            usuarios y necesidades del gimnasio.
+          </p>
         </div>
       </div>
     </section>
@@ -375,7 +415,7 @@
           <h3>Plan Standard</h3>
           <p><strong>965 € + IVA / año</strong></p>
           <ul>
-            <li>APP para Android, iOS y versión Web</li>
+            <li>APP para Android, iOS y Web</li>
             <li>Panel de Administración Web</li>
             <li>Módulo ‘Personal Trainer’</li>
             <li>Soporte y mantenimiento (2h/mes)</li>
@@ -402,13 +442,12 @@
       <div class="modules">
         <ul>
           <li>
-            🧷 <strong>Control de accesos con QR</strong> – desde 1.500 € +
-            IVA<br /><em>Escaneo desde la app o torno compatible</em>
+            🧷 <strong>Control de accesos con QR</strong> – Precio a
+            consultar<br /><em>Escaneo desde la app o torno compatible</em>
           </li>
           <li>
-            🗓 <strong>Gestión y reserva de clases</strong> – 1.100 € + IVA<br /><em
-              >Calendario, aforos, inscripciones</em
-            >
+            🗓 <strong>Gestión y reserva de clases</strong> - Precio a consultar
+            <br /><em>Calendario, aforos, inscripciones</em>
           </li>
           <li>🗃 <strong>Ampliación de usuarios</strong> – precio a medida</li>
         </ul>
@@ -466,13 +505,13 @@
             rows="4"
             placeholder="¿Qué te gustaría conocer o añadir?"
           ></textarea>
-          <button type="submit">Enviar solicitud</button>
+          <button type="submit">Solicitur demo</button>
         </form>
       </div>
     </section>
 
     <footer>
-      <p>&copy; 2024 Planfit. Todos los derechos reservados.</p>
+      <p>&copy; 2025 Planfit. Todos los derechos reservados.</p>
     </footer>
   </body>
 </html>
