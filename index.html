@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planfit | Gestión de Gimnasios SaaS</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #1e3a8a;
+        --secondary: #3b82f6;
+        --bg-light: #f9fafb;
+        --accent: #e0e7ff;
+        --text-dark: #111827;
+        --bg-dark: #1f2937;
+        --text-light: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+      }
+
+      header {
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+        padding: 2.5rem 1rem;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 2.75rem;
+        margin-bottom: 1rem;
+      }
+
+      header p {
+        font-size: 1.2rem;
+        color: #cddbe7;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .intro-box {
+        background-color: var(--accent);
+        border-radius: 14px;
+        padding: 2rem;
+        text-align: center;
+        margin: 3rem auto;
+        max-width: 800px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .intro-box h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .intro-box p {
+        font-size: 1.1rem;
+        color: var(--text-dark);
+      }
+
+      section {
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+        color: var(--secondary);
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        color: var(--primary);
+        margin-top: 1.5rem;
+      }
+
+      p,
+      ul li {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: var(--primary);
+        color: var(--text-light);
+        padding: 0.75rem 1.5rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 1rem;
+        transition: background 0.3s;
+      }
+
+      .btn:hover {
+        background-color: var(--secondary);
+      }
+
+      .grid-cards {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .card {
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        padding: 2rem;
+        transition: transform 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        color: var(--secondary);
+      }
+
+      .feature {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .feature i {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-right: 0.75rem;
+        min-width: 24px;
+      }
+
+      .plans {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .plan {
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        padding: 2rem;
+        transition: transform 0.3s;
+      }
+
+      .plan:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .modules {
+        background: var(--accent);
+        border-left: 5px solid var(--primary);
+        padding: 1.5rem;
+        border-radius: 8px;
+      }
+
+      .modules ul li {
+        margin-bottom: 1rem;
+      }
+
+      .legal-box {
+        background-color: #ffffff;
+        border: 1px solid #d1d5db;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .legal-box ul li {
+        font-size: 1rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .legal-box ul li:last-child {
+        border-bottom: none;
+      }
+
+      .legal-box {
+        background-color: #ffffff;
+        border: 1px solid #d1d5db;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .legal-box ul li {
+        font-size: 1rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .legal-box ul li:last-child {
+        border-bottom: none;
+        margin-bottom: 1rem;
+      }
+
+      .demo-form {
+        background: white;
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        max-width: 600px;
+        margin: 3rem auto;
+      }
+
+      .demo-form input,
+      .demo-form textarea {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+
+      .demo-form button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--primary);
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .demo-form button:hover {
+        background-color: var(--secondary);
+      }
+
+      footer {
+        background: var(--bg-dark);
+        color: var(--text-light);
+        text-align: center;
+        padding: 1.5rem;
+        margin-top: 4rem;
+        font-size: 0.9rem;
+      }
+
+      ul {
+        padding-left: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Planfit – Software SaaS para Gimnasios</h1>
+      <p>Transforma la gestión de tu gimnasio con una solución todo en uno.</p>
+    </header>
+
+    <div class="intro-box">
+      <h2>Una plataforma, todo el control</h2>
+      <p>
+        Planfit es una solución SaaS que te permite gestionar clientes,
+        entrenamientos, reservas y accesos desde un solo lugar. Diseñada para
+        gimnasios que quieren crecer.
+      </p>
+      <a href="#demo" class="btn">Solicitar demo</a>
+    </div>
+
+    <section>
+      <h2>Beneficios de usar Planfit</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>⏱ Ahorra tiempo</h3>
+          <p>Automatiza procesos y reduce tareas administrativas diarias.</p>
+        </div>
+        <div class="card">
+          <h3>📈 Mejora la retención</h3>
+          <p>
+            Ofrece a tus clientes una experiencia personalizada y profesional.
+          </p>
+        </div>
+        <div class="card">
+          <h3>📊 Control total</h3>
+          <p>
+            Visualiza métricas clave del negocio desde cualquier dispositivo.
+          </p>
+        </div>
+        <div class="card">
+          <h3>🔒 Seguridad garantizada</h3>
+          <p>Gestión de datos bajo estándares modernos de seguridad.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Funcionalidades principales</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>APP para clientes</h3>
+          <div class="feature">
+            <i class="fas fa-dumbbell"></i> Gestión de entrenamientos
+          </div>
+          <div class="feature">
+            <i class="fas fa-calendar-check"></i> Planificación en calendario
+          </div>
+          <div class="feature">
+            <i class="fas fa-chart-line"></i> Estadísticas de progreso
+          </div>
+          <div class="feature">
+            <i class="fas fa-user"></i> Perfil de usuario
+          </div>
+          <div class="feature"><i class="fas fa-robot"></i> Chatbot con IA</div>
+        </div>
+        <div class="card">
+          <h3>Panel de administración</h3>
+          <div class="feature">
+            <i class="fas fa-users-cog"></i> Gestión completa de usuarios
+          </div>
+          <div class="feature">
+            <i class="fas fa-database"></i> Visualización de métricas
+          </div>
+          <div class="feature">
+            <i class="fas fa-user-tie"></i> Asignación a entrenadores
+          </div>
+          <div class="feature">
+            <i class="fas fa-desktop"></i> Control centralizado desde el
+            navegador
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Planes disponibles</h2>
+      <div class="plans">
+        <div class="plan">
+          <h3>Plan Básico</h3>
+          <p><strong>Para gimnasios de hasta 500 usuarios</strong></p>
+          <ul>
+            <li>APP Android, iOS y Web</li>
+            <li>Panel de Administración</li>
+            <li>Módulo Personal Trainer</li>
+            <li>Soporte (hasta 1h/mes)</li>
+          </ul>
+          <p><em>Precio a consultar</em></p>
+          <a href="#demo" class="btn">Lo quiero</a>
+        </div>
+        <div class="plan">
+          <h3>Plan Standard</h3>
+          <p><strong>965 € + IVA / año</strong></p>
+          <ul>
+            <li>APP para Android, iOS y versión Web</li>
+            <li>Panel de Administración Web</li>
+            <li>Módulo ‘Personal Trainer’</li>
+            <li>Soporte y mantenimiento (2h/mes)</li>
+            <li>Hasta 1.000 usuarios activos</li>
+          </ul>
+          <a href="#demo" class="btn">Lo quiero</a>
+        </div>
+        <div class="plan">
+          <h3>Plan Premium</h3>
+          <p><strong>Para más de 1.000 usuarios</strong></p>
+          <ul>
+            <li>Todo lo del Plan Standard</li>
+            <li>Ampliación de usuarios</li>
+            <li>Soporte extendido</li>
+            <li>Funcionalidades personalizadas</li>
+          </ul>
+          <a href="#demo" class="btn">Lo quiero</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Módulos opcionales</h2>
+      <div class="modules">
+        <ul>
+          <li>
+            🧷 <strong>Control de accesos con QR</strong> – desde 1.500 € +
+            IVA<br /><em>Escaneo desde la app o torno compatible</em>
+          </li>
+          <li>
+            🗓 <strong>Gestión y reserva de clases</strong> – 1.100 € + IVA<br /><em
+              >Calendario, aforos, inscripciones</em
+            >
+          </li>
+          <li>🗃 <strong>Ampliación de usuarios</strong> – precio a medida</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Transparencia y condiciones</h2>
+      <div class="legal-box">
+        <ul>
+          <li>
+            📄 <strong>Licencia anual:</strong> Todos los precios corresponden a
+            licencias de uso anual.
+          </li>
+          <li>
+            🔒 <strong>Propiedad del software:</strong> No se cede el código
+            fuente.
+          </li>
+          <li>
+            🛠 <strong>Personalización:</strong> Funcionalidades adicionales bajo
+            presupuesto.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="demo">
+      <h2>Solicita una demo</h2>
+      <div class="demo-form">
+        <form
+          action="mailto:carlosjorgech7@gmail.com"
+          method="POST"
+          enctype="text/plain"
+        >
+          <input
+            type="text"
+            name="Nombre completo"
+            placeholder="Nombre completo"
+            required
+          />
+          <input
+            type="email"
+            name="Correo"
+            placeholder="Correo electrónico"
+            required
+          />
+          <input
+            type="text"
+            name="Gimnasio"
+            placeholder="Nombre del gimnasio"
+            required
+          />
+          <textarea
+            name="Mensaje"
+            rows="4"
+            placeholder="¿Qué te gustaría conocer o añadir?"
+          ></textarea>
+          <button type="submit">Enviar solicitud</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2024 Planfit. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>
