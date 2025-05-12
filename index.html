@@ -29,6 +29,85 @@
         box-sizing: border-box;
       }
 
+      .navbar {
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar .brand {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--text-light);
+        text-decoration: none;
+      }
+
+      .menu-toggle {
+        background: none;
+        border: none;
+        color: var(--text-light);
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: none;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: var(--bg-dark);
+          flex-direction: column;
+          display: none;
+          padding: 1rem 0;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links li {
+          text-align: center;
+          padding: 0.75rem 0;
+        }
+      }
+
       body {
         font-family: "Inter", sans-serif;
         background: var(--bg-light);
@@ -39,7 +118,7 @@
       header {
         background-color: var(--bg-dark);
         color: var(--text-light);
-        padding: 2.5rem 1rem;
+        padding: 8rem 1rem 2.5rem;
         text-align: center;
       }
 
@@ -297,23 +376,80 @@
       ul {
         padding-left: 1.2rem;
       }
+
+      .intro-highlight {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 2rem 0;
+      }
+
+      .highlight-card {
+        background: white;
+        border: 1px solid #d1d5db;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        width: 250px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+      }
+
+      .highlight-card i {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .highlight-card h3 {
+        margin-bottom: 0.5rem;
+        color: var(--secondary);
+      }
     </style>
   </head>
   <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="brand">Planfit</a>
+        <button class="menu-toggle" aria-label="Abrir menú">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#funcionalidades">Funcionalidades</a></li>
+          <li><a href="#beneficios">Beneficios</a></li>
+          <li><a href="#planes">Planes</a></li>
+          <li><a href="#modulos">Módulos</a></li>
+          <li><a href="#transparencia">Transparencia</a></li>
+          <li><a href="#demo">Demo</a></li>
+        </ul>
+      </div>
+    </nav>
+
     <header>
-      <h1>Planfit – Software SaaS para Gimnasios</h1>
+      <h1>Planfit – Software para Gimnasios</h1>
       <p>Transforma la gestión de tu gimnasio con una solución todo en uno.</p>
     </header>
 
     <div class="intro-box">
       <h2>Una plataforma, todo el control</h2>
-      <p>
-        Planfit es una solución SaaS integral que ofrece una
-        <strong>APP</strong> para clientes o socios del club +
-        <strong>Panel de Admin</strong>
-        para staff.
-      </p>
-      <br />
+      <div class="intro-highlight">
+        <div class="highlight-card">
+          <i class="fas fa-mobile-alt"></i>
+          <h3>APP para clientes</h3>
+          <p>
+            Disponible en <strong>Android, iOS, Web y Desktop</strong> para
+            socios de tu gym
+          </p>
+        </div>
+        <div class="highlight-card">
+          <i class="fas fa-user-cog"></i>
+          <h3>Panel de Administración</h3>
+          <p>
+            Acceso <strong>Web</strong> con seguridad para entrenadores y
+            personal del gimnasio.
+          </p>
+        </div>
+      </div>
       <p>
         Diseñada para gimnasios que quieren crecer y
         <strong>digitalizarse</strong>
@@ -321,7 +457,7 @@
       <a href="#demo" class="btn">Solicitar demo</a>
     </div>
 
-    <section>
+    <section id="funcionalidades">
       <h2>Funcionalidades principales</h2>
       <div class="grid-cards">
         <div class="card">
@@ -369,7 +505,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="beneficios">
       <h2>Beneficios de usar Planfit</h2>
       <div class="grid-cards">
         <div class="card">
@@ -418,7 +554,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="planes">
       <h2>Planes disponibles</h2>
       <div class="plans">
         <div class="plan">
@@ -459,7 +595,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="modulos">
       <h2>Módulos opcionales</h2>
       <div class="modules">
         <ul>
@@ -476,7 +612,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="transparencia">
       <h2>Transparencia y condiciones</h2>
       <div class="legal-box">
         <ul>
@@ -549,4 +685,19 @@
       </div>
     </footer>
   </body>
+  <script>
+    const toggle = document.querySelector(".menu-toggle");
+    const links = document.querySelector(".nav-links");
+    const linkItems = document.querySelectorAll(".nav-links a");
+
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("active");
+    });
+
+    linkItems.forEach((link) => {
+      link.addEventListener("click", () => {
+        links.classList.remove("active");
+      });
+    });
+  </script>
 </html>
