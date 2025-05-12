@@ -262,14 +262,36 @@
       .demo-form button:hover {
         background-color: var(--secondary);
       }
-
-      footer {
-        background: var(--bg-dark);
+      .footer {
+        background-color: var(--bg-dark);
         color: var(--text-light);
+        padding: 2rem 1.5rem;
         text-align: center;
-        padding: 1.5rem;
         margin-top: 4rem;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+      }
+
+      .footer-content {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .footer-links {
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .footer-links a {
+        color: var(--text-light);
+        text-decoration: underline;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
       }
 
       ul {
@@ -402,36 +424,36 @@
         <div class="plan">
           <h3>Plan Básico</h3>
           <p><strong>Para gimnasios de hasta 500 usuarios</strong></p>
-          <ul>
-            <li>APP Android, iOS y Web</li>
-            <li>Panel de Administración</li>
-            <li>Módulo Personal Trainer</li>
-            <li>Soporte (hasta 1h/mes)</li>
-          </ul>
+          <div class="checklist">
+            <p>✅ APP Android, iOS y Web</p>
+            <p>✅ Panel de Administración</p>
+            <p>✅ Módulo Personal Trainer</p>
+            <p>✅ Soporte (hasta 1h/mes)</p>
+          </div>
           <p><em>Precio a consultar</em></p>
           <a href="#demo" class="btn">Lo quiero</a>
         </div>
         <div class="plan">
           <h3>Plan Standard</h3>
           <p><strong>965 € + IVA / año</strong></p>
-          <ul>
-            <li>APP para Android, iOS y Web</li>
-            <li>Panel de Administración Web</li>
-            <li>Módulo ‘Personal Trainer’</li>
-            <li>Soporte y mantenimiento (2h/mes)</li>
-            <li>Hasta 1.000 usuarios activos</li>
-          </ul>
+          <div class="checklist">
+            <p>✅ APP para Android, iOS y Web</p>
+            <p>✅ Panel de Administración Web</p>
+            <p>✅ Módulo ‘Personal Trainer’</p>
+            <p>✅ Soporte y mantenimiento (2h/mes)</p>
+            <p>✅ Hasta 1.000 usuarios activos</p>
+          </div>
           <a href="#demo" class="btn">Lo quiero</a>
         </div>
         <div class="plan">
           <h3>Plan Premium</h3>
           <p><strong>Para más de 1.000 usuarios</strong></p>
-          <ul>
-            <li>Todo lo del Plan Standard</li>
-            <li>Ampliación de usuarios</li>
-            <li>Soporte extendido</li>
-            <li>Funcionalidades personalizadas</li>
-          </ul>
+          <div class="checklist">
+            <p>✅ Todo lo del Plan Standard</p>
+            <p>✅ Ampliación de usuarios</p>
+            <p>✅ Soporte extendido</p>
+            <p>✅ Funcionalidades personalizadas</p>
+          </div>
           <a href="#demo" class="btn">Lo quiero</a>
         </div>
       </div>
@@ -505,13 +527,26 @@
             rows="4"
             placeholder="¿Qué te gustaría conocer o añadir?"
           ></textarea>
-          <button type="submit">Solicitur demo</button>
+          <button type="submit">Solicitar demo</button>
         </form>
       </div>
     </section>
 
-    <footer>
-      <p>&copy; 2025 Planfit. Todos los derechos reservados.</p>
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2025 Planfit. Todos los derechos reservados.</p>
+        <div class="footer-links">
+          <a
+            href="https://planfit-privacity-policies.onrender.com/"
+            target="_blank"
+            >Política de privacidad</a
+          >
+          <span>|</span>
+          <a href="https://planfit-cookies.onrender.com/" target="_blank"
+            >Política de cookies</a
+          >
+        </div>
+      </div>
     </footer>
   </body>
 </html>
