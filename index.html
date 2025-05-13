@@ -405,6 +405,17 @@
         margin-bottom: 0.5rem;
         color: var(--secondary);
       }
+
+      .nav-links li {
+        text-align: center;
+        padding: 0.75rem 0;
+        width: 100%;
+      }
+
+      .nav-links li a {
+        display: block;
+        width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -415,12 +426,12 @@
           <i class="fas fa-bars"></i>
         </button>
         <ul class="nav-links">
-          <li><a href="#funcionalidades">Funcionalidades</a></li>
-          <li><a href="#beneficios">Beneficios</a></li>
-          <li><a href="#planes">Planes</a></li>
-          <li><a href="#modulos">Módulos</a></li>
+          <li><a href="#funcionalidades">Funcionalidades principales</a></li>
+          <li><a href="#beneficios">Beneficios de planfit</a></li>
+          <li><a href="#planes">Planes disponibles</a></li>
+          <li><a href="#modulos">Módulos opcionales</a></li>
           <li><a href="#transparencia">Transparencia</a></li>
-          <li><a href="#demo">Demo</a></li>
+          <li><a href="#demo">Solicitar demo</a></li>
         </ul>
       </div>
     </nav>
@@ -509,14 +520,20 @@
       <h2>Beneficios de usar Planfit</h2>
       <div class="grid-cards">
         <div class="card">
-          <h3>📲 Digitalización total</h3>
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-mobile-alt"></i>
+            Digitalización total
+          </h3>
           <p>
             Una solución integral que conecta a clientes y entrenadores a través
             de una app multiplataforma y un panel administrativo web.
           </p>
         </div>
         <div class="card">
-          <h3>⚙️ Gestión inteligente de entrenamientos</h3>
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-cogs"></i> Gestión
+            inteligente de entrenamientos
+          </h3>
           <p>
             Desde el panel se crean rutinas y planes personalizados que el
             cliente puede seguir desde su app con vídeos e instrucciones
@@ -524,28 +541,40 @@
           </p>
         </div>
         <div class="card">
-          <h3>🗓 Planificación y seguimiento</h3>
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-calendar-alt"></i>
+            Planificación y seguimiento
+          </h3>
           <p>
             El calendario integrado permite organizar entrenamientos y
             visualizar el progreso, facilitando la constancia y el control.
           </p>
         </div>
         <div class="card">
-          <h3>🤖 Asistencia automatizada con IA</h3>
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-robot"></i> Asistencia
+            automatizada con IA
+          </h3>
           <p>
             Un chatbot inteligente que ofrece ayuda contextual al usuario en
             todo momento, resolviendo dudas y motivando.
           </p>
         </div>
         <div class="card">
-          <h3>📊 Control completo para el staff</h3>
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-user-shield"></i> Control
+            completo para el staff
+          </h3>
           <p>
             Trazabilidad por usuario y herramientas para que los entrenadores
             gestionen sus clientes de forma efectiva.
           </p>
         </div>
         <div class="card">
-          <h3>🔐 Seguridad y escalabilidad</h3>
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-lock"></i> Seguridad y
+            escalabilidad
+          </h3>
           <p>
             Infraestructura segura con capacidad de crecer según el volumen de
             usuarios y necesidades del gimnasio.
@@ -598,16 +627,21 @@
     <section id="modulos">
       <h2>Módulos opcionales</h2>
       <div class="modules">
-        <ul>
+        <ul style="list-style: none; padding-left: 0">
           <li>
-            🧷 <strong>Control de accesos con QR</strong> – Precio a
-            consultar<br /><em>Escaneo desde la app o torno compatible</em>
+            <i style="color: #1e3a8a" class="fas fa-qrcode"></i>
+            <strong>Control de accesos con QR</strong> – Precio a consultar<br />
+            <em>Escaneo desde la app o torno compatible</em>
           </li>
           <li>
-            🗓 <strong>Gestión y reserva de clases</strong> - Precio a consultar
-            <br /><em>Calendario, aforos, inscripciones</em>
+            <i style="color: #1e3a8a" class="fas fa-calendar-check"></i>
+            <strong>Gestión y reserva de clases</strong> – Precio a consultar<br />
+            <em>Calendario, aforos, inscripciones</em>
           </li>
-          <li>🗃 <strong>Ampliación de usuarios</strong> – precio a medida</li>
+          <li>
+            <i style="color: #1e3a8a" class="fas fa-users"></i>
+            <strong>Ampliación de usuarios</strong> – Precio a medida
+          </li>
         </ul>
       </div>
     </section>
@@ -617,15 +651,18 @@
       <div class="legal-box">
         <ul>
           <li>
-            📄 <strong>Licencia anual:</strong> Todos los precios corresponden a
+            <i style="color: #1e3a8a" class="fas fa-file-alt"></i>
+            <strong>Licencia anual:</strong> Todos los precios corresponden a
             licencias de uso anual.
           </li>
           <li>
-            🔒 <strong>Propiedad del software:</strong> No se cede el código
+            <i style="color: #1e3a8a" class="fas fa-shield-alt"></i>
+            <strong>Propiedad del software:</strong> No se cede el código
             fuente.
           </li>
           <li>
-            🛠 <strong>Personalización:</strong> Funcionalidades adicionales bajo
+            <i style="color: #1e3a8a" class="fas fa-tools"></i>
+            <strong>Personalización:</strong> Funcionalidades adicionales bajo
             presupuesto.
           </li>
         </ul>
@@ -687,16 +724,21 @@
   </body>
   <script>
     const toggle = document.querySelector(".menu-toggle");
+    const icon = toggle.querySelector("i");
     const links = document.querySelector(".nav-links");
     const linkItems = document.querySelectorAll(".nav-links a");
 
     toggle.addEventListener("click", () => {
       links.classList.toggle("active");
+      icon.classList.toggle("fa-bars");
+      icon.classList.toggle("fa-times");
     });
 
     linkItems.forEach((link) => {
       link.addEventListener("click", () => {
         links.classList.remove("active");
+        icon.classList.add("fa-bars");
+        icon.classList.remove("fa-times");
       });
     });
   </script>
