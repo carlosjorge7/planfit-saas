@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Planfit | Gestión de Gimnasios SaaS</title>
+    <title>Planfit | Ahorra tiempo gestionando rutinas de entrenamiento</title>
+    <meta
+      name="description"
+      content="Software para entrenadores personales que automatiza la creación y seguimiento de rutinas de ejercicios para tus clientes"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -16,8 +20,9 @@
       :root {
         --primary: #1e3a8a;
         --secondary: #3b82f6;
+        --accent: #10b981;
         --bg-light: #f9fafb;
-        --accent: #e0e7ff;
+        --accent-light: #e0e7ff;
         --text-dark: #111827;
         --bg-dark: #1f2937;
         --text-light: #ffffff;
@@ -116,7 +121,11 @@
       }
 
       header {
-        background-color: var(--bg-dark);
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
         color: var(--text-light);
         padding: 8rem 1rem 2.5rem;
         text-align: center;
@@ -135,13 +144,14 @@
       }
 
       .intro-box {
-        background-color: var(--accent);
+        background-color: white;
         border-radius: 14px;
         padding: 2rem;
         text-align: center;
         margin: 3rem auto;
         max-width: 800px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e5e7eb;
       }
 
       .intro-box h2 {
@@ -165,6 +175,7 @@
         font-size: 2rem;
         color: var(--secondary);
         margin-bottom: 1rem;
+        text-align: center;
       }
 
       h3 {
@@ -180,7 +191,7 @@
 
       .btn {
         display: inline-block;
-        background-color: var(--primary);
+        background-color: var(--accent);
         color: var(--text-light);
         padding: 0.75rem 1.5rem;
         border-radius: 30px;
@@ -191,7 +202,15 @@
       }
 
       .btn:hover {
+        background-color: #0da271;
+      }
+
+      .btn-secondary {
         background-color: var(--secondary);
+      }
+
+      .btn-secondary:hover {
+        background-color: #2563eb;
       }
 
       .grid-cards {
@@ -246,6 +265,25 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
         padding: 2rem;
         transition: transform 0.3s;
+        position: relative;
+      }
+
+      .plan.popular {
+        border: 2px solid var(--accent);
+        transform: scale(1.05);
+      }
+
+      .popular-badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--accent);
+        color: white;
+        padding: 0.25rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
       }
 
       .plan:hover {
@@ -253,8 +291,12 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       }
 
+      .plan.popular:hover {
+        transform: scale(1.05) translateY(-5px);
+      }
+
       .modules {
-        background: var(--accent);
+        background: var(--accent-light);
         border-left: 5px solid var(--primary);
         padding: 1.5rem;
         border-radius: 8px;
@@ -286,28 +328,6 @@
         border-bottom: none;
       }
 
-      .legal-box {
-        background-color: #ffffff;
-        border: 1px solid #d1d5db;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      }
-
-      .legal-box ul li {
-        font-size: 1rem;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid #e5e7eb;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-
-      .legal-box ul li:last-child {
-        border-bottom: none;
-        margin-bottom: 1rem;
-      }
-
       .demo-form {
         background: white;
         border-radius: 10px;
@@ -318,7 +338,8 @@
       }
 
       .demo-form input,
-      .demo-form textarea {
+      .demo-form textarea,
+      .demo-form select {
         width: 100%;
         padding: 0.75rem;
         margin-bottom: 1rem;
@@ -329,7 +350,7 @@
       .demo-form button {
         width: 100%;
         padding: 0.75rem;
-        background-color: var(--primary);
+        background-color: var(--accent);
         color: white;
         font-weight: bold;
         border: none;
@@ -339,8 +360,9 @@
       }
 
       .demo-form button:hover {
-        background-color: var(--secondary);
+        background-color: #0da271;
       }
+
       .footer {
         background-color: var(--bg-dark);
         color: var(--text-light);
@@ -416,6 +438,47 @@
         display: block;
         width: 100%;
       }
+
+      .testimonial {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid var(--accent);
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+      }
+
+      .testimonial-author img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 1rem;
+        background-color: #e5e7eb;
+      }
+
+      .time-saver {
+        background-color: var(--accent-light);
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        margin: 2rem 0;
+      }
+
+      .time-saver h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .time-saver p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+      }
     </style>
   </head>
   <body>
@@ -426,272 +489,329 @@
           <i class="fas fa-bars"></i>
         </button>
         <ul class="nav-links">
-          <li><a href="#funcionalidades">Funcionalidades principales</a></li>
-          <li><a href="#beneficios">Beneficios de planfit</a></li>
-          <li><a href="#planes">Planes disponibles</a></li>
-          <li><a href="#modulos">Módulos opcionales</a></li>
-          <li><a href="#transparencia">Transparencia</a></li>
-          <li><a href="#demo">Solicitar demo</a></li>
+          <li><a href="#beneficios">Beneficios</a></li>
+          <li><a href="#funcionalidades">Cómo funciona</a></li>
+          <li><a href="#planes">Planes y precios</a></li>
+          <li><a href="#testimonios">Opiniones</a></li>
+          <li><a href="#demo">Prueba gratis</a></li>
         </ul>
       </div>
     </nav>
 
     <header>
-      <h1>Planfit – Software para Gimnasios</h1>
-      <p>Transforma la gestión de tu gimnasio con una solución todo en uno.</p>
+      <h1>Ahorra 10+ horas semanales gestionando rutinas</h1>
+      <p>
+        Planfit automatiza la creación y seguimiento de entrenamientos para que
+        te enfoques en lo que realmente importa: tus clientes.
+      </p>
+      <a href="#demo" class="btn" style="margin-top: 2rem"
+        >Comenzar prueba gratuita</a
+      >
     </header>
 
     <div class="intro-box">
-      <h2>Una plataforma, todo el control</h2>
+      <h2>Diseñado específicamente para entrenadores personales</h2>
       <div class="intro-highlight">
         <div class="highlight-card">
-          <i class="fas fa-mobile-alt"></i>
-          <h3>APP para clientes</h3>
+          <i class="fas fa-stopwatch"></i>
+          <h3>Crea rutinas en minutos</h3>
           <p>
-            Disponible en <strong>Android, iOS, Web y Desktop</strong> para
-            socios de tu gym
+            Genera planes personalizados para cada cliente en lugar de horas
           </p>
         </div>
         <div class="highlight-card">
           <i class="fas fa-user-cog"></i>
-          <h3>Panel de Administración</h3>
-          <p>
-            Acceso <strong>Web</strong> con seguridad para entrenadores y
-            personal del gimnasio.
-          </p>
+          <h3>Panel de control simple</h3>
+          <p>Gestiona todos tus clientes desde una sola plataforma web</p>
+        </div>
+        <div class="highlight-card">
+          <i class="fas fa-mobile-alt"></i>
+          <h3>App para tus clientes</h3>
+          <p>Tus clientes acceden a sus rutinas desde cualquier dispositivo</p>
         </div>
       </div>
       <p>
-        Diseñada para gimnasios que quieren crecer y
-        <strong>digitalizarse</strong>
+        <strong>Digitaliza tu negocio</strong> y ofrece una experiencia premium
+        a tus clientes
       </p>
-      <a href="#demo" class="btn">Solicitar demo</a>
+    </div>
+
+    <section id="beneficios">
+      <h2>¿Por qué los entrenadores eligen Planfit?</h2>
+      <div class="grid-cards">
+        <div class="card">
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-clock"></i>
+            Ahorra tiempo valioso
+          </h3>
+          <p>
+            Reduce el tiempo que dedicas a crear, modificar y enviar rutinas en
+            un 70%. Lo que antes te tomaba horas ahora lo haces en minutos.
+          </p>
+        </div>
+        <div class="card">
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-chart-line"></i>
+            Mejora la retención de clientes
+          </h3>
+          <p>
+            Los clientes valoran la experiencia digital y el seguimiento
+            detallado. Aumenta su compromiso y reduce las bajas.
+          </p>
+        </div>
+        <div class="card">
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-euro-sign"></i>
+            Escala tu negocio
+          </h3>
+          <p>
+            Atiende a más clientes sin aumentar tu tiempo de trabajo. Gestiona
+            eficientemente desde 5 hasta 50+ clientes.
+          </p>
+        </div>
+        <div class="card">
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-user-check"></i>
+            Profesionaliza tu servicio
+          </h3>
+          <p>
+            Ofrece una app personalizada con tu marca que diferencia tu servicio
+            y justifica mejores tarifas.
+          </p>
+        </div>
+        <div class="card">
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-sync-alt"></i>
+            Actualizaciones en tiempo real
+          </h3>
+          <p>
+            Modifica rutinas sobre la marcha y tus clientes las ven al instante
+            en sus dispositivos.
+          </p>
+        </div>
+        <div class="card">
+          <h3>
+            <i style="color: #1e3a8a" class="fas fa-video"></i>
+            Instrucciones claras
+          </h3>
+          <p>
+            Cada ejercicio incluye videos demostrativos, evitando malentendidos
+            y asegurando la técnica correcta.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="time-saver">
+      <h3>¿Cuánto tiempo podrías ahorrar?</h3>
+      <p>
+        Un entrenador personal promedio dedica
+        <strong>8-12 horas semanales</strong> creando y gestionando rutinas
+        manualmente.
+      </p>
+      <p>
+        Con Planfit, reduces este tiempo a <strong>2-3 horas semanales</strong>.
+      </p>
+      <p>
+        <strong
+          >¡Gana 40+ horas al mes para enfocarte en crecimiento o vida
+          personal!</strong
+        >
+      </p>
     </div>
 
     <section id="funcionalidades">
-      <h2>Funcionalidades principales</h2>
+      <h2>Cómo funciona Planfit</h2>
       <div class="grid-cards">
         <div class="card">
-          <h3>APP para clientes</h3>
+          <h3>Para el entrenador</h3>
           <div class="feature">
-            <i class="fas fa-dumbbell"></i> Gestión de entrenamientos
+            <i class="fas fa-user-plus"></i> Gestión centralizada de clientes
           </div>
           <div class="feature">
-            <i class="fas fa-list-ul"></i> Listado de ejercicios completo
+            <i class="fas fa-dumbbell"></i> Biblioteca de ejercicios con videos
           </div>
           <div class="feature">
-            <i class="fas fa-video"></i> Vídeo demo e instrucciones de
-            ejercicios
+            <i class="fas fa-magic"></i> Creación rápida de rutinas
+            personalizadas
           </div>
           <div class="feature">
-            <i class="fas fa-bolt"></i> Generador de rutinas
+            <i class="fas fa-sync"></i> Modificaciones en tiempo real
           </div>
           <div class="feature">
-            <i class="fas fa-calendar-check"></i> Planificación en calendario
+            <i class="fas fa-chart-bar"></i> Seguimiento del progreso de
+            clientes
           </div>
           <div class="feature">
-            <i class="fas fa-chart-line"></i> Estadísticas de progreso
-          </div>
-          <div class="feature"><i class="fas fa-robot"></i> Chatbot con IA</div>
-          <div class="feature">
-            <i class="fas fa-user"></i> Perfil de usuario
-          </div>
-          <div class="feature">
-            <i class="fas fa-calendar-alt"></i> Reserva y visualización de
-            clases
+            <i class="fas fa-sticky-note"></i> Notas y observaciones por cliente
           </div>
         </div>
         <div class="card">
-          <h3>Panel de administración</h3>
+          <h3>Para tus clientes</h3>
           <div class="feature">
-            <i class="fas fa-shield-alt"></i> Login seguro para el panel de
-            administración
-          </div>
-
-          <div class="feature">
-            <i class="fas fa-users-cog"></i> Gestión completa de usuarios
+            <i class="fas fa-mobile-alt"></i> App disponible en iOS, Android y
+            Web
           </div>
           <div class="feature">
-            <i class="fas fa-database"></i> Gestión integral de la base de datos
+            <i class="fas fa-dumbbell"></i> Acceso a rutinas asignadas
           </div>
           <div class="feature">
-            <i class="fas fa-user-tie"></i> Los entrenadores pueden administrar
-            los planes de entrenamiento de los usuarios
+            <i class="fas fa-video"></i> Videos e instrucciones de cada
+            ejercicio
           </div>
           <div class="feature">
-            <i class="fas fa-desktop"></i> Control centralizado desde el
-            navegador
+            <i class="fas fa-check-circle"></i> Registro de entrenamientos
+            completados
           </div>
           <div class="feature">
-            <i class="fas fa-chalkboard-teacher"></i> Gestión y administración
-            de clases por entrenador
+            <i class="fas fa-chart-line"></i> Seguimiento de su progreso
+          </div>
+          <div class="feature">
+            <i class="fas fa-comment-alt"></i> Comunicación directa contigo
           </div>
         </div>
       </div>
     </section>
 
-    <section id="beneficios">
-      <h2>Beneficios de usar Planfit</h2>
-      <div class="grid-cards">
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-mobile-alt"></i>
-            Digitalización total
-          </h3>
-          <p>
-            Una solución integral que conecta a clientes y entrenadores a través
-            de una app multiplataforma y un panel administrativo web.
-          </p>
+    <section id="testimonios">
+      <h2>Opiniones de entrenadores</h2>
+      <div class="testimonial">
+        <p>
+          "Antes perdía más de 10 horas a la semana creando rutinas en Word y
+          Excel. Con Planfit, reduzco ese tiempo a 2 horas y mis clientes están
+          más contentos con la app."
+        </p>
+        <div class="testimonial-author">
+          <div
+            style="
+              background-color: #e5e7eb;
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i class="fas fa-user" style="color: #6b7280"></i>
+          </div>
+          <div>
+            <strong>María González</strong>
+            <p>Entrenadora personal, 5 años de experiencia</p>
+          </div>
         </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-cogs"></i> Gestión
-            inteligente de entrenamientos
-          </h3>
-          <p>
-            Desde el panel se crean rutinas y planes personalizados que el
-            cliente puede seguir desde su app con vídeos e instrucciones
-            detalladas.
-          </p>
+      </div>
+      <div class="testimonial">
+        <p>
+          "Mis clientes adoran tener acceso inmediato a sus rutinas desde el
+          móvil. Las instrucciones con videos han reducido las consultas por
+          WhatsApp a la mitad."
+        </p>
+        <div class="testimonial-author">
+          <div
+            style="
+              background-color: #e5e7eb;
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i class="fas fa-user" style="color: #6b7280"></i>
+          </div>
+          <div>
+            <strong>Javier López</strong>
+            <p>Entrenador y fisioterapeuta</p>
+          </div>
         </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-calendar-alt"></i>
-            Planificación y seguimiento
-          </h3>
-          <p>
-            El calendario integrado permite organizar entrenamientos y
-            visualizar el progreso, facilitando la constancia y el control.
-          </p>
-        </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-robot"></i> Asistencia
-            automatizada con IA
-          </h3>
-          <p>
-            Un chatbot inteligente que ofrece ayuda contextual al usuario en
-            todo momento, resolviendo dudas y motivando.
-          </p>
-        </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-user-shield"></i> Control
-            completo para el staff
-          </h3>
-          <p>
-            Trazabilidad por usuario y herramientas para que los entrenadores
-            gestionen sus clientes de forma efectiva.
-          </p>
-        </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-lock"></i> Seguridad y
-            escalabilidad
-          </h3>
-          <p>
-            Infraestructura segura con capacidad de crecer según el volumen de
-            usuarios y necesidades del gimnasio.
-          </p>
+      </div>
+      <div class="testimonial">
+        <p>
+          "He podido escalar mi negocio de 15 a 25 clientes sin aumentar mis
+          horas de trabajo. La automatización de rutinas me permite enfocarme en
+          el coaching."
+        </p>
+        <div class="testimonial-author">
+          <div
+            style="
+              background-color: #e5e7eb;
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i class="fas fa-user" style="color: #6b7280"></i>
+          </div>
+          <div>
+            <strong>Ana Martínez</strong>
+            <p>Propietaria de estudio boutique</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="planes">
-      <h2>Planes disponibles</h2>
+      <h2>Planes para entrenadores</h2>
       <div class="plans">
         <div class="plan">
-          <h3>Plan Básico</h3>
-          <p><strong>Para gimnasios de hasta 750 usuarios</strong></p>
+          <h3>Plan Inicial</h3>
+          <p><strong>Perfecto para empezar</strong></p>
           <div class="checklist">
-            <p>✅ APP Multiplataforma (Android, iOS, Web y Desktop)</p>
-            <p>✅ Panel de Administración Web para staff</p>
-            <p>✅ Módulo Personal Trainer</p>
-            <p>✅ Gestión y reserva de clases</p>
-            <p>✅ Soporte y mantenimiento (1h/mes)</p>
+            <p>✅ Hasta 15 clientes</p>
+            <p>✅ App para clientes (iOS, Android, Web)</p>
+            <p>✅ Panel de control para entrenador</p>
+            <p>✅ Biblioteca de ejercicios con videos</p>
+            <p>✅ Soporte por email</p>
           </div>
-          <p><strong>1.100 € + IVA / año</strong></p>
-          <p>
-            <em>Incluye <strong>14 días</strong> de prueba gratuita</em>
-          </p>
-          <a href="#demo" class="btn">Lo quiero</a>
+          <p><strong>29€ / mes</strong></p>
+          <p><em>o 290€ al año (2 meses gratis)</em></p>
+          <a href="#demo" class="btn">Comenzar prueba</a>
+        </div>
+        <div class="plan popular">
+          <div class="popular-badge">MÁS POPULAR</div>
+          <h3>Plan Profesional</h3>
+          <p><strong>Ideal para entrenadores establecidos</strong></p>
+          <div class="checklist">
+            <p>✅ Hasta 40 clientes</p>
+            <p>✅ Todo lo del Plan Inicial</p>
+            <p>✅ Estadísticas avanzadas de progreso</p>
+            <p>✅ Comunicación integrada con clientes</p>
+            <p>✅ Soporte prioritario</p>
+            <p>✅ Plantillas de rutinas personalizables</p>
+          </div>
+          <p><strong>59€ / mes</strong></p>
+          <p><em>o 590€ al año (2 meses gratis)</em></p>
+          <a href="#demo" class="btn">Comenzar prueba</a>
         </div>
         <div class="plan">
-          <h3>Plan Standard</h3>
-          <p><strong>Para gimnasios de hasta 1.500 usuarios</strong></p>
+          <h3>Plan Elite</h3>
+          <p><strong>Para estudios en crecimiento</strong></p>
           <div class="checklist">
-            <p>✅ APP Multiplataforma (Android, iOS, Web y Desktop)</p>
-            <p>✅ Panel de Administración Web para staff</p>
-            <p>✅ Módulo Personal Trainer</p>
-            <p>✅ Gestión y reserva de clases</p>
-            <p>✅ Soporte y mantenimiento (2h/mes)</p>
+            <p>✅ Clientes ilimitados</p>
+            <p>✅ Todo lo del Plan Profesional</p>
+            <p>✅ Múltiples entrenadores</p>
+            <p>✅ Branding personalizado</p>
+            <p>✅ Integraciones avanzadas</p>
+            <p>✅ Soporte premium</p>
           </div>
-          <p><strong>1.690 € + IVA / año</strong></p>
-          <p>
-            <em>Incluye <strong>14 días</strong> de prueba gratuita</em>
-          </p>
-          <a href="#demo" class="btn">Lo quiero</a>
-        </div>
-        <div class="plan">
-          <h3>Plan Premium</h3>
-          <p><strong>Para gimnasios con usuarios ilimitados</strong></p>
-          <div class="checklist">
-            <p>✅ Todo lo del Plan Standard</p>
-            <p>✅ Ampliación de usuarios</p>
-            <p>✅ Soporte y mantenimiento extendido</p>
-          </div>
-          <p><strong>Precio a medida</strong></p>
-          <a href="#demo" class="btn">Lo quiero</a>
+          <p><strong>99€ / mes</strong></p>
+          <p><em>o 990€ al año (2 meses gratis)</em></p>
+          <a href="#demo" class="btn">Comenzar prueba</a>
         </div>
       </div>
-    </section>
-
-    <section id="modulos">
-      <h2>Módulos opcionales</h2>
-      <div class="modules">
-        <ul style="list-style: none; padding-left: 0">
-          <li>
-            <i style="color: #1e3a8a" class="fas fa-qrcode"></i>
-            <strong>Control de accesos con QR</strong> – Precio a consultar<br />
-            <em>Escaneo desde la app o torno compatible</em>
-          </li>
-          <li>
-            <i class="fas fa-screwdriver-wrench" style="color: #1e3a8a"></i>
-            <strong>Funcionalidades extra</strong> – Precio a consultar<br />
-          </li>
-          <li>
-            <i style="color: #1e3a8a" class="fas fa-users"></i>
-            <strong>Ampliación de usuarios</strong> – Precio a medida
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="transparencia">
-      <h2>Transparencia y condiciones</h2>
-      <div class="legal-box">
-        <ul>
-          <li>
-            <i style="color: #1e3a8a" class="fas fa-file-alt"></i>
-            <strong>Licencia anual:</strong> Todos los precios corresponden a
-            licencias de uso anual.
-          </li>
-          <li>
-            <i style="color: #1e3a8a" class="fas fa-shield-alt"></i>
-            <strong>Propiedad del software:</strong> No se cede el código
-            fuente.
-          </li>
-          <li>
-            <i style="color: #1e3a8a" class="fas fa-tools"></i>
-            <strong>Personalización:</strong> Funcionalidades adicionales bajo
-            presupuesto.
-          </li>
-        </ul>
-      </div>
+      <p style="text-align: center; margin-top: 1rem">
+        <strong>14 días de prueba gratuita</strong> - Sin compromiso, sin
+        tarjeta requerida
+      </p>
     </section>
 
     <section id="demo">
-      <h2>Solicita una demo</h2>
+      <h2>Prueba Planfit gratis 14 días</h2>
       <div class="demo-form">
         <form
           action="mailto:carlosjorgech7@gmail.com"
@@ -712,17 +832,41 @@
           />
           <input
             type="text"
-            name="Gimnasio"
-            placeholder="Nombre del gimnasio"
+            name="Negocio"
+            placeholder="Nombre de tu negocio o estudio"
             required
           />
+          <select name="Tipo de negocio">
+            <option value="" disabled selected>
+              Selecciona tu tipo de negocio
+            </option>
+            <option value="entrenador_independiente">
+              Entrenador personal independiente
+            </option>
+            <option value="fisioterapeuta">Fisioterapeuta</option>
+            <option value="gym_pequeno">Gimnasio pequeño</option>
+            <option value="estudio_boutique">Estudio boutique</option>
+            <option value="otro">Otro</option>
+          </select>
+          <select name="Clientes actuales">
+            <option value="" disabled selected>
+              Número aproximado de clientes
+            </option>
+            <option value="1-10">1-10 clientes</option>
+            <option value="11-25">11-25 clientes</option>
+            <option value="26-50">26-50 clientes</option>
+            <option value="50+">Más de 50 clientes</option>
+          </select>
           <textarea
             name="Mensaje"
             rows="4"
-            placeholder="¿Qué te gustaría conocer o añadir?"
+            placeholder="¿Qué es lo que más tiempo te consume actualmente?"
           ></textarea>
-          <button type="submit">Solicitar demo</button>
+          <button type="submit">Comenzar prueba gratuita</button>
         </form>
+        <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem">
+          Sin compromiso. Puedes cancelar cuando quieras.
+        </p>
       </div>
     </section>
 
@@ -739,6 +883,8 @@
           <a href="https://planfit-cookies.onrender.com/" target="_blank"
             >Política de cookies</a
           >
+          <span>|</span>
+          <a href="mailto:carlosjorgech7@gmail.com">Contacto</a>
         </div>
       </div>
     </footer>
