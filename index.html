@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Planfit | Ahorra tiempo gestionando rutinas de entrenamiento</title>
+    <title>Planfit | Gestiona rutinas en minutos, no en horas</title>
     <meta
       name="description"
       content="Software para entrenadores personales que automatiza la creación y seguimiento de rutinas de ejercicios para tus clientes"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link
@@ -18,13 +18,12 @@
     />
     <style>
       :root {
-        --primary: #1e3a8a;
-        --secondary: #3b82f6;
-        --accent: #10b981;
-        --bg-light: #f9fafb;
-        --accent-light: #e0e7ff;
-        --text-dark: #111827;
-        --bg-dark: #1f2937;
+        --danger: #c5000f;
+        --dark: #222428;
+        --primary: #0163aa;
+        --danger-secondary: #fff0f2;
+        --bg-light: #f8f9fa;
+        --text-dark: #222428;
         --text-light: #ffffff;
       }
 
@@ -34,30 +33,68 @@
         box-sizing: border-box;
       }
 
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
       .navbar {
-        background-color: var(--bg-dark);
+        background-color: rgba(34, 36, 40, 0.98);
+        backdrop-filter: blur(10px);
         color: var(--text-light);
         position: fixed;
         top: 0;
         width: 100%;
         z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
       }
 
       .nav-container {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 1rem 1.5rem;
+        padding: 1rem 2rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
 
       .navbar .brand {
-        font-weight: 700;
-        font-size: 1.25rem;
+        font-weight: 800;
+        font-size: 1.5rem;
         color: var(--text-light);
         text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .brand-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, var(--primary), var(--danger));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
       }
 
       .menu-toggle {
@@ -72,21 +109,779 @@
       .nav-links {
         list-style: none;
         display: flex;
-        gap: 1.5rem;
+        gap: 2rem;
+        align-items: center;
       }
 
       .nav-links a {
         color: var(--text-light);
         text-decoration: none;
         font-weight: 500;
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-links .btn-nav {
+        background: var(--primary);
+        padding: 0.6rem 1.5rem;
+        border-radius: 25px;
+        transition: all 0.3s;
+      }
+
+      .nav-links .btn-nav:hover {
+        background: var(--danger);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(197, 0, 15, 0.3);
+      }
+
+      .nav-links .btn-nav::after {
+        display: none;
+      }
+
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--dark) 0%,
+          var(--primary) 100%
+        );
+        color: var(--text-light);
+        padding: 10rem 2rem 6rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+        opacity: 0.5;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+        margin: 0 auto;
+        animation: fadeInUp 0.8s ease;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+        line-height: 1.2;
+        background: linear-gradient(135deg, #fff, #e0e0e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: #e0e0e0;
+        margin-bottom: 3rem;
+        font-weight: 400;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-size: 1.1rem;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--danger);
+        color: white;
+        box-shadow: 0 10px 30px rgba(197, 0, 15, 0.3);
+      }
+
+      .btn-primary:hover {
+        background: #a00000;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(197, 0, 15, 0.4);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        color: var(--dark);
+      }
+
+      .trust-badges {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .badge i {
+        color: #4ade80;
+        font-size: 1.2rem;
+      }
+
+      .problem-solution {
+        max-width: 1200px;
+        margin: -3rem auto 4rem;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 10;
+      }
+
+      .ps-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        animation: slideUp 0.8s ease;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .ps-side {
+        padding: 3rem;
+      }
+
+      .problem-side {
+        background: var(--danger-secondary);
+        border-right: 3px solid var(--danger);
+      }
+
+      .solution-side {
+        background: white;
+      }
+
+      .ps-side h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .ps-side h3 i {
+        font-size: 1.5rem;
+      }
+
+      .problem-side h3 {
+        color: var(--danger);
+      }
+
+      .solution-side h3 {
+        color: var(--primary);
+      }
+
+      .ps-list {
+        list-style: none;
+      }
+
+      .ps-list li {
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        font-size: 1.05rem;
+      }
+
+      .ps-list li i {
+        margin-top: 0.3rem;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+
+      .problem-side .ps-list li i {
+        color: var(--danger);
+      }
+
+      .solution-side .ps-list li i {
+        color: #4ade80;
+      }
+
+      section {
+        max-width: 1200px;
+        margin: 5rem auto;
+        padding: 0 2rem;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-header h2 {
+        font-size: 2.5rem;
+        color: var(--dark);
+        margin-bottom: 1rem;
+        font-weight: 800;
+      }
+
+      .section-header p {
+        font-size: 1.2rem;
+        color: #6b7280;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2.5rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s;
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--danger));
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
+      }
+
+      .feature-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary), var(--danger));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        color: white;
+      }
+
+      .feature-card h3 {
+        font-size: 1.4rem;
+        color: var(--dark);
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .feature-card p {
+        color: #6b7280;
+        line-height: 1.7;
+      }
+
+      .dual-panel {
+        background: linear-gradient(135deg, var(--dark), var(--primary));
+        padding: 5rem 2rem;
+        margin: 5rem 0;
+      }
+
+      .dual-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .dual-header {
+        text-align: center;
+        color: white;
+        margin-bottom: 4rem;
+      }
+
+      .dual-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+      }
+
+      .dual-header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .panels-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+
+      .panel-card {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s;
+      }
+
+      .panel-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+      }
+
+      .panel-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 3px solid var(--bg-light);
+      }
+
+      .panel-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--primary), var(--danger));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .panel-header h3 {
+        font-size: 1.6rem;
+        color: var(--dark);
+        font-weight: 700;
+      }
+
+      .panel-features {
+        list-style: none;
+      }
+
+      .panel-features li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+        font-size: 1.05rem;
+        color: #4b5563;
+      }
+
+      .panel-features li i {
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+
+      .stats-section {
+        background: var(--danger-secondary);
+        padding: 4rem 2rem;
+        margin: 5rem 0;
+      }
+
+      .stats-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+      }
+
+      .stat-card {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--danger);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        color: var(--dark);
+        font-weight: 600;
+      }
+
+      .testimonials {
+        background: white;
+        padding: 5rem 2rem;
+      }
+
+      .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .testimonial {
+        background: var(--bg-light);
+        border-radius: 16px;
+        padding: 2rem;
+        border-left: 4px solid var(--primary);
+        transition: all 0.3s;
+      }
+
+      .testimonial:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .testimonial-text {
+        font-size: 1.05rem;
+        color: #4b5563;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        font-style: italic;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .author-avatar {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--primary), var(--danger));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .author-info strong {
+        display: block;
+        color: var(--dark);
+        font-weight: 600;
+      }
+
+      .author-info span {
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+
+      .pricing-section {
+        background: linear-gradient(180deg, white 0%, var(--bg-light) 100%);
+        padding: 5rem 2rem;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .pricing-card {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem 2.5rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s;
+        border: 2px solid transparent;
+        position: relative;
+      }
+
+      .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+      }
+
+      .pricing-card.featured {
+        border-color: var(--danger);
+        transform: scale(1.05);
+        box-shadow: 0 20px 60px rgba(197, 0, 15, 0.15);
+      }
+
+      .pricing-card.featured:hover {
+        transform: scale(1.05) translateY(-10px);
+      }
+
+      .featured-badge {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--danger);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .pricing-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--bg-light);
+      }
+
+      .pricing-card h3 {
+        font-size: 1.8rem;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+
+      .pricing-card .subtitle {
+        color: #6b7280;
+        font-size: 0.95rem;
+      }
+
+      .price {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin: 1.5rem 0;
+      }
+
+      .price small {
+        font-size: 1.2rem;
+        color: #6b7280;
+        font-weight: 500;
+      }
+
+      .price-note {
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+
+      .pricing-features {
+        list-style: none;
+        margin: 2rem 0;
+      }
+
+      .pricing-features li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        color: #4b5563;
+      }
+
+      .pricing-features li i {
+        color: #4ade80;
+        font-size: 1.1rem;
+      }
+
+      .pricing-cta {
+        width: 100%;
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      .cta-section {
+        background: linear-gradient(135deg, var(--primary), var(--danger));
+        color: white;
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+
+      .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .cta-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+      }
+
+      .cta-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .cta-form {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem;
+        margin-top: 3rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      }
+
+      .cta-form h3 {
+        color: var(--dark);
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        color: var(--dark);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s;
+        font-family: "Inter", sans-serif;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(1, 99, 170, 0.1);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .form-note {
+        text-align: center;
+        color: #6b7280;
+        font-size: 0.9rem;
+        margin-top: 1rem;
+      }
+
+      .footer {
+        background: var(--dark);
+        color: white;
+        padding: 3rem 2rem 2rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
         transition: color 0.3s;
       }
 
-      .nav-links a:hover {
-        color: var(--secondary);
+      .footer-links a:hover {
+        color: white;
       }
 
-      /* Responsive */
+      .footer-bottom {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.6);
+      }
+
       @media (max-width: 768px) {
         .menu-toggle {
           display: block;
@@ -97,816 +892,678 @@
           top: 100%;
           left: 0;
           right: 0;
-          background-color: var(--bg-dark);
+          background: var(--dark);
           flex-direction: column;
           display: none;
           padding: 1rem 0;
+          gap: 0;
+        }
+
+        .nav-links li {
+          width: 100%;
+          text-align: center;
+          padding: 0.75rem 0;
         }
 
         .nav-links.active {
           display: flex;
         }
 
-        .nav-links li {
-          text-align: center;
-          padding: 0.75rem 0;
+        header h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1.1rem;
+        }
+
+        .ps-container {
+          grid-template-columns: 1fr;
+        }
+
+        .problem-side {
+          border-right: none;
+          border-bottom: 3px solid var(--danger);
+        }
+
+        .panels-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .pricing-card.featured {
+          transform: scale(1);
+        }
+
+        .section-header h2 {
+          font-size: 2rem;
         }
       }
 
-      body {
-        font-family: "Inter", sans-serif;
-        background: var(--bg-light);
-        color: var(--text-dark);
-        line-height: 1.6;
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
       }
 
-      header {
-        background: linear-gradient(
-          135deg,
-          var(--primary) 0%,
-          var(--secondary) 100%
-        );
-        color: var(--text-light);
-        padding: 8rem 1rem 2.5rem;
-        text-align: center;
-      }
-
-      header h1 {
-        font-size: 2.75rem;
-        margin-bottom: 1rem;
-      }
-
-      header p {
-        font-size: 1.2rem;
-        color: #cddbe7;
-        max-width: 700px;
-        margin: 0 auto;
-      }
-
-      .intro-box {
-        background-color: white;
-        border-radius: 14px;
-        padding: 2rem;
-        text-align: center;
-        margin: 3rem auto;
-        max-width: 800px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        border: 1px solid #e5e7eb;
-      }
-
-      .intro-box h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        color: var(--primary);
-      }
-
-      .intro-box p {
-        font-size: 1.1rem;
-        color: var(--text-dark);
-      }
-
-      section {
-        max-width: 1100px;
-        margin: 2rem auto;
-        padding: 0 1.5rem;
-      }
-
-      h2 {
-        font-size: 2rem;
-        color: var(--secondary);
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-
-      h3 {
-        color: var(--primary);
-        margin-top: 1.5rem;
-      }
-
-      p,
-      ul li {
-        font-size: 1rem;
-        margin-bottom: 0.8rem;
-      }
-
-      .btn {
-        display: inline-block;
-        background-color: var(--accent);
-        color: var(--text-light);
-        padding: 0.75rem 1.5rem;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: 600;
-        margin-top: 1rem;
-        transition: background 0.3s;
-      }
-
-      .btn:hover {
-        background-color: #0da271;
-      }
-
-      .btn-secondary {
-        background-color: var(--secondary);
-      }
-
-      .btn-secondary:hover {
-        background-color: #2563eb;
-      }
-
-      .grid-cards {
-        display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      }
-
-      .card {
-        background: white;
-        border-radius: 12px;
-        border: 1px solid #ddd;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        padding: 2rem;
-        transition: transform 0.3s;
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      }
-
-      .card h3 {
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
-        color: var(--secondary);
-      }
-
-      .feature {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1rem;
-      }
-
-      .feature i {
-        font-size: 1.5rem;
-        color: var(--primary);
-        margin-right: 0.75rem;
-        min-width: 24px;
-      }
-
-      .plans {
-        display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      }
-
-      .plan {
-        background: white;
-        border-radius: 12px;
-        border: 1px solid #ccc;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-        padding: 2rem;
-        transition: transform 0.3s;
-        position: relative;
-      }
-
-      .plan.popular {
-        border: 2px solid var(--accent);
-        transform: scale(1.05);
-      }
-
-      .popular-badge {
-        position: absolute;
-        top: -12px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: var(--accent);
-        color: white;
-        padding: 0.25rem 1rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: bold;
-      }
-
-      .plan:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      }
-
-      .plan.popular:hover {
-        transform: scale(1.05) translateY(-5px);
-      }
-
-      .modules {
-        background: var(--accent-light);
-        border-left: 5px solid var(--primary);
-        padding: 1.5rem;
-        border-radius: 8px;
-      }
-
-      .modules ul li {
-        margin-bottom: 1rem;
-      }
-
-      .legal-box {
-        background-color: #ffffff;
-        border: 1px solid #d1d5db;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      }
-
-      .legal-box ul li {
-        font-size: 1rem;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid #e5e7eb;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-
-      .legal-box ul li:last-child {
-        border-bottom: none;
-      }
-
-      .demo-form {
-        background: white;
-        border-radius: 10px;
-        padding: 2rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        max-width: 600px;
-        margin: 3rem auto;
-      }
-
-      .demo-form input,
-      .demo-form textarea,
-      .demo-form select {
-        width: 100%;
-        padding: 0.75rem;
-        margin-bottom: 1rem;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-      }
-
-      .demo-form button {
-        width: 100%;
-        padding: 0.75rem;
-        background-color: var(--accent);
-        color: white;
-        font-weight: bold;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      .demo-form button:hover {
-        background-color: #0da271;
-      }
-
-      .footer {
-        background-color: var(--bg-dark);
-        color: var(--text-light);
-        padding: 2rem 1.5rem;
-        text-align: center;
-        margin-top: 4rem;
-        font-size: 0.95rem;
-      }
-
-      .footer-content {
-        max-width: 1100px;
-        margin: 0 auto;
-      }
-
-      .footer-links {
-        margin-top: 0.5rem;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-
-      .footer-links a {
-        color: var(--text-light);
-        text-decoration: underline;
-        transition: color 0.3s;
-      }
-
-      .footer-links a:hover {
-        color: var(--secondary);
-      }
-
-      ul {
-        padding-left: 1.2rem;
-      }
-
-      .intro-highlight {
-        display: flex;
-        gap: 2rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 2rem 0;
-      }
-
-      .highlight-card {
-        background: white;
-        border: 1px solid #d1d5db;
-        border-radius: 12px;
-        padding: 1.5rem;
-        text-align: center;
-        width: 250px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-      }
-
-      .highlight-card i {
-        font-size: 2rem;
-        color: var(--primary);
-        margin-bottom: 0.5rem;
-      }
-
-      .highlight-card h3 {
-        margin-bottom: 0.5rem;
-        color: var(--secondary);
-      }
-
-      .nav-links li {
-        text-align: center;
-        padding: 0.75rem 0;
-        width: 100%;
-      }
-
-      .nav-links li a {
-        display: block;
-        width: 100%;
-      }
-
-      .testimonial {
-        background-color: white;
-        border-radius: 12px;
-        padding: 2rem;
-        margin: 1rem 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        border-left: 4px solid var(--accent);
-      }
-
-      .testimonial-author {
-        display: flex;
-        align-items: center;
-        margin-top: 1rem;
-      }
-
-      .testimonial-author img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin-right: 1rem;
-        background-color: #e5e7eb;
-      }
-
-      .time-saver {
-        background-color: var(--accent-light);
-        border-radius: 12px;
-        padding: 2rem;
-        text-align: center;
-        margin: 2rem 0;
-      }
-
-      .time-saver h3 {
-        color: var(--primary);
-        margin-bottom: 1rem;
-      }
-
-      .time-saver p {
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
+      .floating {
+        animation: float 3s ease-in-out infinite;
       }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-container">
-        <a href="#" class="brand">Planfit</a>
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          Planfit
+        </a>
         <button class="menu-toggle" aria-label="Abrir menú">
           <i class="fas fa-bars"></i>
         </button>
         <ul class="nav-links">
-          <li><a href="#beneficios">Beneficios</a></li>
-          <li><a href="#funcionalidades">Cómo funciona</a></li>
-          <li><a href="#planes">Planes y precios</a></li>
-          <li><a href="#testimonios">Opiniones</a></li>
-          <li><a href="#demo">Prueba gratis</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#planes">Precios</a></li>
+          <li><a href="#testimonios">Casos de éxito</a></li>
+          <li><a href="#demo" class="btn-nav">Prueba gratis</a></li>
         </ul>
       </div>
     </nav>
 
     <header>
-      <h1>Ahorra 10+ horas semanales gestionando rutinas</h1>
-      <p>
-        Planfit automatiza la creación y seguimiento de entrenamientos para que
-        te enfoques en lo que realmente importa: tus clientes.
-      </p>
-      <a href="#demo" class="btn" style="margin-top: 2rem"
-        >Comenzar prueba gratuita</a
-      >
-    </header>
-
-    <div class="intro-box">
-      <h2>Diseñado específicamente para entrenadores personales</h2>
-      <div class="intro-highlight">
-        <div class="highlight-card">
-          <i class="fas fa-stopwatch"></i>
-          <h3>Crea rutinas en minutos</h3>
-          <p>
-            Genera planes personalizados para cada cliente en lugar de horas
-          </p>
+      <div class="hero-content">
+        <h1>Gestiona rutinas en minutos, no en horas</h1>
+        <p class="hero-subtitle">
+          El software que ahorra 10+ horas semanales a entrenadores personales
+          automatizando la creación y seguimiento de rutinas
+        </p>
+        <div class="hero-cta">
+          <a href="#demo" class="btn btn-primary">Comenzar prueba gratis</a>
+          <a href="#como-funciona" class="btn btn-secondary"
+            >Ver cómo funciona</a
+          >
         </div>
-        <div class="highlight-card">
-          <i class="fas fa-user-cog"></i>
-          <h3>Panel de control simple</h3>
-          <p>Gestiona todos tus clientes desde una sola plataforma web</p>
-        </div>
-        <div class="highlight-card">
-          <i class="fas fa-mobile-alt"></i>
-          <h3>App para tus clientes</h3>
-          <p>Tus clientes acceden a sus rutinas desde cualquier dispositivo</p>
+        <div class="trust-badges">
+          <div class="badge">
+            <i class="fas fa-check-circle"></i>
+            <span>14 días gratis</span>
+          </div>
+          <div class="badge">
+            <i class="fas fa-check-circle"></i>
+            <span>Sin tarjeta requerida</span>
+          </div>
+          <div class="badge">
+            <i class="fas fa-check-circle"></i>
+            <span>Cancela cuando quieras</span>
+          </div>
         </div>
       </div>
-      <p>
-        <strong>Digitaliza tu negocio</strong> y ofrece una experiencia premium
-        a tus clientes
-      </p>
+    </header>
+
+    <div class="problem-solution">
+      <div class="ps-container">
+        <div class="ps-side problem-side">
+          <h3>
+            <i class="fas fa-exclamation-triangle"></i>
+            El problema
+          </h3>
+          <ul class="ps-list">
+            <li>
+              <i class="fas fa-times-circle"></i>
+              <span
+                >Pierdes 8-12 horas semanales creando rutinas en Excel o
+                Word</span
+              >
+            </li>
+            <li>
+              <i class="fas fa-times-circle"></i>
+              <span
+                >Tus clientes pierden o no entienden las rutinas enviadas por
+                WhatsApp</span
+              >
+            </li>
+            <li>
+              <i class="fas fa-times-circle"></i>
+              <span>Actualizar rutinas es un proceso manual y tedioso</span>
+            </li>
+            <li>
+              <i class="fas fa-times-circle"></i>
+              <span
+                >No puedes escalar tu negocio sin aumentar horas de
+                trabajo</span
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="ps-side solution-side">
+          <h3>
+            <i class="fas fa-check-circle"></i>
+            La solución
+          </h3>
+          <ul class="ps-list">
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <span
+                >Crea rutinas profesionales en 3 minutos desde un panel
+                intuitivo</span
+              >
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <span>Tus clientes acceden a su web app personalizada 24/7</span>
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <span
+                >Actualizaciones instantáneas que tus clientes ven en tiempo
+                real</span
+              >
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i>
+              <span
+                >Escala de 5 a 50+ clientes sin aumentar tu carga de
+                trabajo</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <section id="beneficios">
-      <h2>¿Por qué los entrenadores eligen Planfit?</h2>
-      <div class="grid-cards">
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-clock"></i>
-            Ahorra tiempo valioso
-          </h3>
+    <div class="stats-section">
+      <div class="stats-container">
+        <div class="stat-card">
+          <span class="stat-number">10+</span>
+          <span class="stat-label">Horas ahorradas por semana</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3min</span>
+          <span class="stat-label">Para crear una rutina completa</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">70%</span>
+          <span class="stat-label">Reducción en tiempo de gestión</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="como-funciona">
+      <div class="section-header">
+        <h2>Dos plataformas, un objetivo: ahorrarte tiempo</h2>
+        <p>Panel de administración para ti + Web app para tus clientes</p>
+      </div>
+    </section>
+
+    <div class="dual-panel">
+      <div class="dual-container">
+        <div class="dual-header">
+          <h2>Cómo funciona Planfit</h2>
+          <p>Todo lo que necesitas en dos interfaces simples y potentes</p>
+        </div>
+        <div class="panels-grid">
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-icon">
+                <i class="fas fa-user-cog"></i>
+              </div>
+              <h3>Panel del Entrenador</h3>
+            </div>
+            <ul class="panel-features">
+              <li>
+                <i class="fas fa-users"></i>
+                <span>Gestiona todos tus clientes desde un solo lugar</span>
+              </li>
+              <li>
+                <i class="fas fa-dumbbell"></i>
+                <span>Biblioteca completa de ejercicios con videos</span>
+              </li>
+              <li>
+                <i class="fas fa-magic"></i>
+                <span>Crea rutinas personalizadas en minutos</span>
+              </li>
+              <li>
+                <i class="fas fa-edit"></i>
+                <span>Modifica y actualiza rutinas en tiempo real</span>
+              </li>
+              <li>
+                <i class="fas fa-chart-line"></i>
+                <span>Visualiza el progreso de cada cliente</span>
+              </li>
+              <li>
+                <i class="fas fa-bell"></i>
+                <span>Notificaciones automáticas a tus clientes</span>
+              </li>
+            </ul>
+          </div>
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <h3>App del Cliente</h3>
+            </div>
+            <ul class="panel-features">
+              <li>
+                <i class="fas fa-globe"></i>
+                <span
+                  >Acceso desde cualquier dispositivo (iOS, Android, Web)</span
+                >
+              </li>
+              <li>
+                <i class="fas fa-calendar-check"></i>
+                <span>Consulta sus rutinas asignadas al instante</span>
+              </li>
+              <li>
+                <i class="fas fa-video"></i>
+                <span>Videos instructivos de cada ejercicio</span>
+              </li>
+              <li>
+                <i class="fas fa-check-square"></i>
+                <span>Marca entrenamientos como completados</span>
+              </li>
+              <li>
+                <i class="fas fa-chart-bar"></i>
+                <span>Seguimiento visual de su progreso</span>
+              </li>
+              <li>
+                <i class="fas fa-comments"></i>
+                <span>Comunicación directa contigo</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-header">
+        <h2>Beneficios que transforman tu negocio</h2>
+        <p>Más que un software, es tu socio para crecer</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Ahorra tiempo valioso</h3>
           <p>
-            Reduce el tiempo que dedicas a crear, modificar y enviar rutinas en
-            un 70%. Lo que antes te tomaba horas ahora lo haces en minutos.
+            Reduce el tiempo de creación de rutinas en un 70%. Lo que antes
+            tomaba horas, ahora lo haces en minutos.
           </p>
         </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-chart-line"></i>
-            Mejora la retención de clientes
-          </h3>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <h3>Escala tu negocio</h3>
           <p>
-            Los clientes valoran la experiencia digital y el seguimiento
-            detallado. Aumenta su compromiso y reduce las bajas.
+            Gestiona eficientemente desde 5 hasta 50+ clientes sin aumentar tu
+            tiempo de trabajo ni contratar personal.
           </p>
         </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-euro-sign"></i>
-            Escala tu negocio
-          </h3>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h3>Profesionaliza tu servicio</h3>
           <p>
-            Atiende a más clientes sin aumentar tu tiempo de trabajo. Gestiona
-            eficientemente desde 5 hasta 50+ clientes.
+            Ofrece una experiencia digital premium que diferencia tu servicio y
+            justifica mejores tarifas.
           </p>
         </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-user-check"></i>
-            Profesionaliza tu servicio
-          </h3>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Mejora la retención</h3>
           <p>
-            Ofrece una app personalizada con tu marca que diferencia tu servicio
-            y justifica mejores tarifas.
+            Los clientes valoran la experiencia digital. Aumenta su compromiso y
+            reduce las cancelaciones.
           </p>
         </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-sync-alt"></i>
-            Actualizaciones en tiempo real
-          </h3>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-sync-alt"></i>
+          </div>
+          <h3>Actualizaciones instantáneas</h3>
           <p>
             Modifica rutinas sobre la marcha y tus clientes las ven al instante
             en sus dispositivos.
           </p>
         </div>
-        <div class="card">
-          <h3>
-            <i style="color: #1e3a8a" class="fas fa-video"></i>
-            Instrucciones claras
-          </h3>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Multiplataforma</h3>
           <p>
-            Cada ejercicio incluye videos demostrativos, evitando malentendidos
-            y asegurando la técnica correcta.
+            Funciona en iOS, Android y Web. Tus clientes acceden desde donde
+            quieran, cuando quieran.
           </p>
         </div>
       </div>
     </section>
 
-    <div class="time-saver">
-      <h3>¿Cuánto tiempo podrías ahorrar?</h3>
-      <p>
-        Un entrenador personal promedio dedica
-        <strong>8-12 horas semanales</strong> creando y gestionando rutinas
-        manualmente.
-      </p>
-      <p>
-        Con Planfit, reduces este tiempo a <strong>2-3 horas semanales</strong>.
-      </p>
-      <p>
-        <strong
-          >¡Gana 40+ horas al mes para enfocarte en crecimiento o vida
-          personal!</strong
-        >
-      </p>
-    </div>
-
-    <section id="funcionalidades">
-      <h2>Cómo funciona Planfit</h2>
-      <div class="grid-cards">
-        <div class="card">
-          <h3>Para el entrenador</h3>
-          <div class="feature">
-            <i class="fas fa-user-plus"></i> Gestión centralizada de clientes
-          </div>
-          <div class="feature">
-            <i class="fas fa-dumbbell"></i> Biblioteca de ejercicios con videos
-          </div>
-          <div class="feature">
-            <i class="fas fa-magic"></i> Creación rápida de rutinas
-            personalizadas
-          </div>
-          <div class="feature">
-            <i class="fas fa-sync"></i> Modificaciones en tiempo real
-          </div>
-          <div class="feature">
-            <i class="fas fa-chart-bar"></i> Seguimiento del progreso de
-            clientes
-          </div>
-          <div class="feature">
-            <i class="fas fa-sticky-note"></i> Notas y observaciones por cliente
+    <section id="testimonios" class="testimonials">
+      <div class="section-header">
+        <h2>Lo que dicen los entrenadores</h2>
+        <p>Casos reales de profesionales que ya usan Planfit</p>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial">
+          <p class="testimonial-text">
+            "Antes perdía más de 10 horas semanales en Excel. Con Planfit, lo
+            reduje a 2 horas. Mis clientes están más contentos y yo tengo más
+            tiempo para entrenar."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="author-info">
+              <strong>María González</strong>
+              <span>Entrenadora personal, 5 años</span>
+            </div>
           </div>
         </div>
-        <div class="card">
-          <h3>Para tus clientes</h3>
-          <div class="feature">
-            <i class="fas fa-mobile-alt"></i> App disponible en iOS, Android y
-            Web
+        <div class="testimonial">
+          <p class="testimonial-text">
+            "La app ha eliminado el 80% de las consultas por WhatsApp. Los
+            videos son claros y mis clientes saben exactamente qué hacer."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="author-info">
+              <strong>Javier López</strong>
+              <span>Entrenador y fisioterapeuta</span>
+            </div>
           </div>
-          <div class="feature">
-            <i class="fas fa-dumbbell"></i> Acceso a rutinas asignadas
-          </div>
-          <div class="feature">
-            <i class="fas fa-video"></i> Videos e instrucciones de cada
-            ejercicio
-          </div>
-          <div class="feature">
-            <i class="fas fa-check-circle"></i> Registro de entrenamientos
-            completados
-          </div>
-          <div class="feature">
-            <i class="fas fa-chart-line"></i> Seguimiento de su progreso
-          </div>
-          <div class="feature">
-            <i class="fas fa-comment-alt"></i> Comunicación directa contigo
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-text">
+            "Pasé de 15 a 30 clientes sin aumentar mis horas de trabajo. La
+            automatización me permite enfocarme en el coaching, no en la
+            administración."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="author-info">
+              <strong>Ana Martínez</strong>
+              <span>Propietaria de estudio boutique</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="testimonios">
-      <h2>Opiniones de entrenadores</h2>
-      <div class="testimonial">
-        <p>
-          "Antes perdía más de 10 horas a la semana creando rutinas en Word y
-          Excel. Con Planfit, reduzco ese tiempo a 2 horas y mis clientes están
-          más contentos con la app."
-        </p>
-        <div class="testimonial-author">
-          <div
-            style="
-              background-color: #e5e7eb;
-              width: 50px;
-              height: 50px;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
-          >
-            <i class="fas fa-user" style="color: #6b7280"></i>
+    <section id="planes" class="pricing-section">
+      <div class="section-header">
+        <h2>Planes diseñados para ti</h2>
+        <p>Elige el plan que se adapte a tu negocio</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3>Inicial</h3>
+            <p class="subtitle">Perfecto para empezar</p>
+            <div class="price">29€<small>/mes</small></div>
+            <p class="price-note">o 290€/año (2 meses gratis)</p>
           </div>
-          <div>
-            <strong>María González</strong>
-            <p>Entrenadora personal, 5 años de experiencia</p>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> Hasta 15 clientes</li>
+            <li><i class="fas fa-check"></i> Panel de control completo</li>
+            <li><i class="fas fa-check"></i> Web app para clientes</li>
+            <li><i class="fas fa-check"></i> Biblioteca de ejercicios</li>
+            <li><i class="fas fa-check"></i> Soporte por email</li>
+          </ul>
+          <div class="pricing-cta">
+            <a href="#demo" class="btn btn-primary">Comenzar prueba</a>
           </div>
         </div>
-      </div>
-      <div class="testimonial">
-        <p>
-          "Mis clientes adoran tener acceso inmediato a sus rutinas desde el
-          móvil. Las instrucciones con videos han reducido las consultas por
-          WhatsApp a la mitad."
-        </p>
-        <div class="testimonial-author">
-          <div
-            style="
-              background-color: #e5e7eb;
-              width: 50px;
-              height: 50px;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
-          >
-            <i class="fas fa-user" style="color: #6b7280"></i>
-          </div>
-          <div>
-            <strong>Javier López</strong>
-            <p>Entrenador y fisioterapeuta</p>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial">
-        <p>
-          "He podido escalar mi negocio de 15 a 25 clientes sin aumentar mis
-          horas de trabajo. La automatización de rutinas me permite enfocarme en
-          el coaching."
-        </p>
-        <div class="testimonial-author">
-          <div
-            style="
-              background-color: #e5e7eb;
-              width: 50px;
-              height: 50px;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
-          >
-            <i class="fas fa-user" style="color: #6b7280"></i>
-          </div>
-          <div>
-            <strong>Ana Martínez</strong>
-            <p>Propietaria de estudio boutique</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="planes">
-      <h2>Planes para entrenadores</h2>
-      <div class="plans">
-        <div class="plan">
-          <h3>Plan Inicial</h3>
-          <p><strong>Perfecto para empezar</strong></p>
-          <div class="checklist">
-            <p>✅ Hasta 15 clientes</p>
-            <p>✅ App para clientes (iOS, Android, Web)</p>
-            <p>✅ Panel de control para entrenador</p>
-            <p>✅ Biblioteca de ejercicios con videos</p>
-            <p>✅ Soporte por email</p>
+        <div class="pricing-card featured">
+          <div class="featured-badge">MÁS POPULAR</div>
+          <div class="pricing-header">
+            <h3>Profesional</h3>
+            <p class="subtitle">Para entrenadores establecidos</p>
+            <div class="price">59€<small>/mes</small></div>
+            <p class="price-note">o 590€/año (2 meses gratis)</p>
           </div>
-          <p><strong>29€ / mes</strong></p>
-          <p><em>o 290€ al año (2 meses gratis)</em></p>
-          <a href="#demo" class="btn">Comenzar prueba</a>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> Hasta 40 clientes</li>
+            <li><i class="fas fa-check"></i> Todo del Plan Inicial</li>
+            <li><i class="fas fa-check"></i> Estadísticas avanzadas</li>
+            <li><i class="fas fa-check"></i> Comunicación integrada</li>
+            <li><i class="fas fa-check"></i> Plantillas personalizables</li>
+            <li><i class="fas fa-check"></i> Soporte prioritario</li>
+          </ul>
+          <div class="pricing-cta">
+            <a href="#demo" class="btn btn-primary">Comenzar prueba</a>
+          </div>
         </div>
-        <div class="plan popular">
-          <div class="popular-badge">MÁS POPULAR</div>
-          <h3>Plan Profesional</h3>
-          <p><strong>Ideal para entrenadores establecidos</strong></p>
-          <div class="checklist">
-            <p>✅ Hasta 40 clientes</p>
-            <p>✅ Todo lo del Plan Inicial</p>
-            <p>✅ Estadísticas avanzadas de progreso</p>
-            <p>✅ Comunicación integrada con clientes</p>
-            <p>✅ Soporte prioritario</p>
-            <p>✅ Plantillas de rutinas personalizables</p>
+
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3>Elite</h3>
+            <p class="subtitle">Para estudios en crecimiento</p>
+            <div class="price">99€<small>/mes</small></div>
+            <p class="price-note">o 990€/año (2 meses gratis)</p>
           </div>
-          <p><strong>59€ / mes</strong></p>
-          <p><em>o 590€ al año (2 meses gratis)</em></p>
-          <a href="#demo" class="btn">Comenzar prueba</a>
-        </div>
-        <div class="plan">
-          <h3>Plan Elite</h3>
-          <p><strong>Para estudios en crecimiento</strong></p>
-          <div class="checklist">
-            <p>✅ Clientes ilimitados</p>
-            <p>✅ Todo lo del Plan Profesional</p>
-            <p>✅ Múltiples entrenadores</p>
-            <p>✅ Branding personalizado</p>
-            <p>✅ Integraciones avanzadas</p>
-            <p>✅ Soporte premium</p>
+          <ul class="pricing-features">
+            <li><i class="fas fa-check"></i> Clientes ilimitados</li>
+            <li><i class="fas fa-check"></i> Todo del Plan Profesional</li>
+            <li><i class="fas fa-check"></i> Múltiples entrenadores</li>
+            <li><i class="fas fa-check"></i> Branding personalizado</li>
+            <li><i class="fas fa-check"></i> Integraciones avanzadas</li>
+            <li><i class="fas fa-check"></i> Soporte premium 24/7</li>
+          </ul>
+          <div class="pricing-cta">
+            <a href="#demo" class="btn btn-primary">Comenzar prueba</a>
           </div>
-          <p><strong>99€ / mes</strong></p>
-          <p><em>o 990€ al año (2 meses gratis)</em></p>
-          <a href="#demo" class="btn">Comenzar prueba</a>
         </div>
       </div>
-      <p style="text-align: center; margin-top: 1rem">
-        <strong>14 días de prueba gratuita</strong> - Sin compromiso, sin
+      <p
+        style="
+          text-align: center;
+          margin-top: 3rem;
+          font-size: 1.1rem;
+          color: var(--dark);
+        "
+      >
+        <strong>✨ 14 días de prueba gratuita</strong> · Sin compromiso · Sin
         tarjeta requerida
       </p>
     </section>
 
-    <section id="demo">
-      <h2>Prueba Planfit gratis 14 días</h2>
-      <div class="demo-form">
-        <form
-          action="mailto:carlosjorgech7@gmail.com"
-          method="POST"
-          enctype="text/plain"
-        >
-          <input
-            type="text"
-            name="Nombre completo"
-            placeholder="Nombre completo"
-            required
-          />
-          <input
-            type="email"
-            name="Correo"
-            placeholder="Correo electrónico"
-            required
-          />
-          <input
-            type="text"
-            name="Negocio"
-            placeholder="Nombre de tu negocio o estudio"
-            required
-          />
-          <select name="Tipo de negocio">
-            <option value="" disabled selected>
-              Selecciona tu tipo de negocio
-            </option>
-            <option value="entrenador_independiente">
-              Entrenador personal independiente
-            </option>
-            <option value="fisioterapeuta">Fisioterapeuta</option>
-            <option value="gym_pequeno">Gimnasio pequeño</option>
-            <option value="estudio_boutique">Estudio boutique</option>
-            <option value="otro">Otro</option>
-          </select>
-          <select name="Clientes actuales">
-            <option value="" disabled selected>
-              Número aproximado de clientes
-            </option>
-            <option value="1-10">1-10 clientes</option>
-            <option value="11-25">11-25 clientes</option>
-            <option value="26-50">26-50 clientes</option>
-            <option value="50+">Más de 50 clientes</option>
-          </select>
-          <textarea
-            name="Mensaje"
-            rows="4"
-            placeholder="¿Qué es lo que más tiempo te consume actualmente?"
-          ></textarea>
-          <button type="submit">Comenzar prueba gratuita</button>
-        </form>
-        <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem">
-          Sin compromiso. Puedes cancelar cuando quieras.
+    <section id="demo" class="cta-section">
+      <div class="cta-content">
+        <h2>Empieza a ahorrar tiempo hoy mismo</h2>
+        <p>
+          Únete a los entrenadores que ya transformaron su forma de trabajar
         </p>
+
+        <div class="cta-form">
+          <h3>Prueba Planfit gratis durante 14 días</h3>
+          <form
+            action="mailto:carlosjorgech7@gmail.com"
+            method="POST"
+            enctype="text/plain"
+          >
+            <div class="form-group">
+              <label for="nombre">Nombre completo</label>
+              <input
+                type="text"
+                id="nombre"
+                name="Nombre"
+                placeholder="Tu nombre completo"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="Email"
+                placeholder="tu@email.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="negocio">Nombre de tu negocio</label>
+              <input
+                type="text"
+                id="negocio"
+                name="Negocio"
+                placeholder="Nombre de tu estudio o negocio"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="tipo">Tipo de negocio</label>
+              <select id="tipo" name="Tipo de negocio" required>
+                <option value="">Selecciona una opción</option>
+                <option value="entrenador_independiente">
+                  Entrenador personal independiente
+                </option>
+                <option value="fisioterapeuta">Fisioterapeuta</option>
+                <option value="gym_pequeno">Gimnasio pequeño</option>
+                <option value="estudio_boutique">Estudio boutique</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="clientes">Número de clientes actuales</label>
+              <select id="clientes" name="Clientes actuales" required>
+                <option value="">Selecciona una opción</option>
+                <option value="1-10">1-10 clientes</option>
+                <option value="11-25">11-25 clientes</option>
+                <option value="26-50">26-50 clientes</option>
+                <option value="50+">Más de 50 clientes</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mensaje"
+                >¿Qué te consume más tiempo actualmente?</label
+              >
+              <textarea
+                id="mensaje"
+                name="Mensaje"
+                placeholder="Cuéntanos tu mayor desafío..."
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%">
+              Comenzar prueba gratuita
+            </button>
+            <p class="form-note">
+              Sin compromiso. Puedes cancelar en cualquier momento.
+            </p>
+          </form>
+        </div>
       </div>
     </section>
 
     <footer class="footer">
       <div class="footer-content">
-        <p>&copy; 2025 Planfit. Todos los derechos reservados.</p>
+        <div class="footer-brand">Planfit</div>
         <div class="footer-links">
           <a
             href="https://planfit-privacity-policies.onrender.com/"
             target="_blank"
             >Política de privacidad</a
           >
-          <span>|</span>
           <a href="https://planfit-cookies.onrender.com/" target="_blank"
             >Política de cookies</a
           >
-          <span>|</span>
           <a href="mailto:carlosjorgech7@gmail.com">Contacto</a>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Planfit. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
-  </body>
-  <script>
-    const toggle = document.querySelector(".menu-toggle");
-    const icon = toggle.querySelector("i");
-    const links = document.querySelector(".nav-links");
-    const linkItems = document.querySelectorAll(".nav-links a");
 
-    toggle.addEventListener("click", () => {
-      links.classList.toggle("active");
-      icon.classList.toggle("fa-bars");
-      icon.classList.toggle("fa-times");
-    });
+    <script>
+      // Mobile menu toggle
+      const toggle = document.querySelector(".menu-toggle");
+      const navLinks = document.querySelector(".nav-links");
+      const icon = toggle.querySelector("i");
 
-    linkItems.forEach((link) => {
-      link.addEventListener("click", () => {
-        links.classList.remove("active");
-        icon.classList.add("fa-bars");
-        icon.classList.remove("fa-times");
+      toggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-times");
       });
-    });
-  </script>
+
+      // Close menu when clicking on links
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("active");
+          icon.classList.add("fa-bars");
+          icon.classList.remove("fa-times");
+        });
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Animate elements on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe feature cards and other elements
+      document
+        .querySelectorAll(
+          ".feature-card, .panel-card, .testimonial, .pricing-card"
+        )
+        .forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(30px)";
+          el.style.transition = "all 0.6s ease";
+          observer.observe(el);
+        });
+    </script>
+  </body>
 </html>
